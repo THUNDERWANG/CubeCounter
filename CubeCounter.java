@@ -17,7 +17,7 @@ it's not needed if ArrayLists are being used because I can just use the .size() 
   3. code will check for matching elements and list them in a new ArrayList
   */
 
-public class CardCounter_v2 {
+public class CardCounter {
 
 //static variables and ArrayLists
 static ArrayList<String> master_reference_list = new ArrayList<String> ();  
