@@ -26,7 +26,7 @@ static ArrayList<String> removal_cards_list = new ArrayList<String> ();
 
   public static void main(String[] args) {
 
-    // Upload the Master Reference list (eg. removal cards to be searched);
+    // Upload the Master Reference list here! (eg. removal cards to be searched);
     try {
       File master_file = new File ("C:\\Users\\Jason\\Desktop\\Master.txt");
       Scanner Reader1 =  new Scanner (master_file);
@@ -34,13 +34,13 @@ static ArrayList<String> removal_cards_list = new ArrayList<String> ();
         while (Reader1.hasNextLine()) { 
         String master_data = (Reader1.nextLine());
         master_reference_list.add((master_data)); //populate array with what it reads
-                                      }
-      Reader1.close();
         }
+      Reader1.close();
+    }
     catch (FileNotFoundException exception) {System.out.println("some error occured with the master upload"); exception.printStackTrace();
-                                            }
+    }
 
-    // Upload the Cube List (basically a repeat of the code above)
+    // Upload the cube list here! (basically a repeat of the code above)
     try {
       File cube_file = new File ("C:\\Users\\Jason\\Desktop\\THUNDER.txt");
       Scanner Reader2 =  new Scanner (cube_file);
@@ -48,23 +48,26 @@ static ArrayList<String> removal_cards_list = new ArrayList<String> ();
         while (Reader2.hasNextLine()) {
         String cube_data = (Reader2.nextLine()); 
         cube_cards_list.add((cube_data));
-                                      }
+    }
       Reader2.close();
-        }
-    catch (FileNotFoundException exception) {System.out.println("some error occured with the cube list upload");
-                                            }
+    }
+    catch (FileNotFoundException exception) {System.out.println("some error occured with the cube list upload"); exception.printStackTrace();
+    }
     
     // Using loops to compare the elements of 2 arrays and add what it finds to a new array
    
     for (int i = 0; i < master_reference_list.size(); ++i) 
     for (int j = cube_cards_list.size() - 1; j >= 0; --j) //only going backwards here for practice
+      
+    // need to add curly brackets here to be clear
     
     if (master_reference_list.get(i).equalsIgnoreCase(cube_cards_list.get(j)) )
-      {removal_cards_list.add(master_reference_list.get(i));}
+      {removal_cards_list.add(master_reference_list.get(i));
+    }
                                                             
-//practice more if-statements with ifs and fors in {}. First method I used multiplied my results by 3.
+    //practice more if-statements with ifs and fors in {}. First method I used multiplied my results by 3.
 
-    //sort array alphabetically 
+    //sorts array alphabetically 
     Collections.sort(removal_cards_list);
 
     //find percentage and format to precision of 2 and ensure it's not doing some weird integer division
@@ -78,6 +81,6 @@ static ArrayList<String> removal_cards_list = new ArrayList<String> ();
     System.out.println("% of removal cards in cube: " + removal_percentage_formatted + "%" + "\n");
     System.out.println("List of removal cards found:");
     
-
+//note to self: make more methods out of this
   }
 }
