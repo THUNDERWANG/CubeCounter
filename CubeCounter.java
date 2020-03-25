@@ -13,7 +13,7 @@ import java.util.List;
 - Will add other criteria later
 */
 
-public class Test {
+public class CubeCounter {
 
 //method to read Master file
   public static List<String> readMaster(String master_path) {
