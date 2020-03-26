@@ -5,9 +5,11 @@ import java.util.Scanner;
 import java.util.Collections; 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.lang.StringBuilder;
+import java.util.Arrays;
 
-/* Version 4
-- Introduced a query name to allow users to search up whatever criteria they want.
+/* Version 5
+- Split up code into more methods
 - Cleaned up code organization
 - May rename variables later 
 
@@ -17,6 +19,7 @@ public class CubeCounter {
 
 //read cube file and store as ArrayList
   public static List<String> readCube(String cube_path) {
+
     List<String> cube_cards_list = new ArrayList<String> ();
     try {
       File cube_file = new File (cube_path);
@@ -35,6 +38,7 @@ public class CubeCounter {
 
   //read query file and store as Arraylist
   public static List<String> readQuery(String query_path) {
+
     List<String> query_reference_list = new ArrayList<String> ();  
     try {
       File query_file = new File (query_path);
@@ -47,15 +51,13 @@ public class CubeCounter {
     }
     catch (FileNotFoundException exception) {System.out.println("Some error occured with the query upload"); exception.printStackTrace();
     }
-
     return query_reference_list;
   }
 
 //compare ArrayLists by using loops to compare the elements and record hits to a new Arraylist
-  public static void compare(String query_name, List<String> query, List<String> cube) {
+  public static List<String> getHits(List<String> query, List<String> cube) {
 
     List<String> hit_cards_list = new ArrayList<String> ();
-
     for (int i = 0; i < query.size(); ++i) { 
       for (int j = cube.size() - 1; j >= 0; --j) { //only going backwards here for practice
         if (query.get(i).equalsIgnoreCase(cube.get(j) ) ) {
@@ -63,29 +65,40 @@ public class CubeCounter {
         }
       }
     }
+    return hit_cards_list;
+  }
+
+
+  public static String calculateToString(String query_name, List<String> query, List<String> cube) {
+
+    List<String> hitListHereJustToGetAroundScopeProblem = getHits(query, cube);
 
     //Format data to look pretty
-    Collections.sort(hit_cards_list);
-    double hit_percentage = (double) hit_cards_list.size() /cube.size() * 100.0;
+    Collections.sort(hitListHereJustToGetAroundScopeProblem);
+    double hit_percentage = (double) hitListHereJustToGetAroundScopeProblem.size() /cube.size() * 100.0;
     String hit_percentage_formatted = String.format("%.2f", hit_percentage);
 
-    //Print Results
-    System.out.println(query_name + " found: ");
-    for (String r : hit_cards_list) {System.out.println("Match: " + r);}
-    System.out.println("\n" + "Total cards in cube: " + cube.size() + "\n");
-    System.out.println("Number of " + query_name + " cards found: " + hit_cards_list.size() + "\n");
-    System.out.println("% of " + query_name + " in cube: " + hit_percentage_formatted + "%" + "\n");
-        
+    StringBuilder stringy = new StringBuilder();
+    for (String hits : hitListHereJustToGetAroundScopeProblem) {
+      stringy.append("Match: " ).append(hits).append("\n");
+    }
+    stringy.append("\n").append("Total cards in cube: ").append(cube.size())
+    .append("\n").append("Number of ").append(query_name).append(" ").append(hitListHereJustToGetAroundScopeProblem.size())
+    .append("\n").append("Number of ").append(query_name).append(" cards found: ").append (hitListHereJustToGetAroundScopeProblem.size())
+    .append("\n").append(query_name).append(" in cube: ").append(hit_percentage_formatted).append("%");
+    
+    return stringy.toString();    
   }
+  
     public static void main(String[] args) {
-      String cube_path = ("C:\\Users\\Jason\\Desktop\\THUNDER.txt");
-      String query_path = ("C:\\Users\\Jason\\Desktop\\Master.txt");
-      String query_name = "removal";
+      String cube_path = "C:\\Users\\Jason\\Desktop\\THUNDER.txt";
+      String query_path = "C:\\Users\\Jason\\Desktop\\Master.txt";
+      String query_name = "Removal";
 
       List<String> query = readQuery(query_path);
       List<String> cube = readCube(cube_path);
-      compare(query_name, query, cube);
+      String results = calculateToString(query_name, query, cube);
+      System.out.println(results);
     
     }
 }
- 
