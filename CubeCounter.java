@@ -17,7 +17,7 @@ import java.util.List;
 import java.lang.StringBuilder;
 import java.util.Arrays;
 
-public class CubeCounter_v6 {
+public class CubeCounter {
 
   //read cube file and store cards as ArrayList
   public static List<String> readCube(String cube_path) {
