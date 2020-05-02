@@ -1,6 +1,8 @@
-# CubeCounter
-Compares  Magic: The Gathering cube lists to a master list and finds the the same cards.
-Just set the correct query and cube list file path.
+# Cube
 
-More implementations to come!
+This program determines the ASFAN of cubes from a master list of cards and prints the results to a CSV file. 
 
+Instructions:
+1. Download the Cube Project Zip file to the Desktop and extract.
+2. Correct String parentPath.
+3. Results will be written to the "Results" subfolder of Cube Project.
